@@ -1,0 +1,15 @@
+.PHONY: test run build
+
+# 1. SBT run JUnit tests
+test:
+	sbt "testOnly DataQualityTest" && sbt "testOnly DataSchemaTest" && sbt "testOnly DataUseCaseTest"
+
+# 2. SBT run build and package
+build:
+	sbt clean compile package
+
+# 3. Run the JAR
+run: build
+	java -jar target/your-project-name.jar
+
+# Add additional dependencies or customize the commands as needed.
