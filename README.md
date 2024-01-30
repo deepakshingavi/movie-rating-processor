@@ -84,4 +84,4 @@ docker rm $(docker ps -a -q -f ancestor=movie-rating-processor)
 5. Considering consumer queries that aggregate ratings by MovieId/UserId, the rating data could be further optimized for reading by adding a nested bucket for MovieId/UserId. 
 
 ### Assumptions
-1. There are no duplicate user ratings of a movie i.e. ratings.groupBy("UserID","MovieID").filter(col("count") > 1).count is always 1.
+* There are no duplicate user ratings of a movie i.e. ratings.groupBy("UserID","MovieID").filter(col("count") > 1).count is always 1.
