@@ -82,5 +82,3 @@ docker rm $(docker ps -a -q -f ancestor=movie-rating-processor)
 3. To enhance security and address potential vulnerabilities, consider upgrading Spark to version 3.4.2 or later.
 4. While it may be straightforward to partition rating data by the day or month of ingestion, the number of records was too few, resulting in smaller files. Hence, the chosen partition was based on the year of ingestion. 
 5. Considering consumer queries that aggregate ratings by MovieId/UserId, the rating data could be further optimized for reading by adding a nested bucket for MovieId/UserId. 
-   
-*Note : The base output directory, denoted as src/main/resources/output/, serves as the primary location where the generated or processed data is stored.*
