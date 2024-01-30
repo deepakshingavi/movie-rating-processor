@@ -112,7 +112,7 @@ class DataUseCaseTest extends AnyFunSuite with SharedSparkContext
 
       // Load the written data and assert
 
-      val loadedData = spark.read.parquet(outputDir.toAbsolutePath.toString + "/" + tableName)
+      val loadedData = spark.read.parquet(outputDir.toAbsolutePath.toString  + tableName)
       assertDataFrameDataEquals(testData, loadedData)
 
   }
@@ -134,7 +134,7 @@ class DataUseCaseTest extends AnyFunSuite with SharedSparkContext
     BusinessAgg.writeRatingData(testData, outputDir.toAbsolutePath.toString, tableName)
 
     // Load the written data and assert
-    val loadedData = spark.read.parquet(outputDir.toAbsolutePath.toString + "/" + tableName)
+    val loadedData = spark.read.parquet(outputDir.toAbsolutePath.toString  + tableName)
 
     assert(loadedData.columns.contains("Year"))
 

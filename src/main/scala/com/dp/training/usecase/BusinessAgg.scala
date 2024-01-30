@@ -15,7 +15,7 @@ object BusinessAgg {
       .option("compression", "snappy")
       .mode(SaveMode.Overwrite)
       .bucketBy(noOfBuckets, bucketByKey)
-      .option("path", outputFilePath+"/"+tableName)
+      .option("path", outputFilePath+tableName)
       .saveAsTable(tableName)
   }
 
@@ -30,6 +30,7 @@ object BusinessAgg {
 
   /**
    * This code fails to write when rating dir already exists
+   * Note :
    * @param inputDF
    * @param outputFilePath
    * @param tableName
@@ -42,9 +43,7 @@ object BusinessAgg {
       .option("compression", "snappy")
       .mode(SaveMode.Overwrite)
       .partitionBy("Year")
-      .bucketBy(10, "MovieID", "UserID")
-      .option("path", outputFilePath+"/"+tableName)
-      .saveAsTable(tableName)
+      .parquet(outputFilePath+tableName)
   }
 
   def writeTopRatedMovieByUser(inputDF: DataFrame, outputFilePath: String,tableName:String ): Unit = {

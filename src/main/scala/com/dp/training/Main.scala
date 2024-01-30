@@ -16,7 +16,7 @@ object Main {
     val inputDir = params.getOrElse("input", throw new RuntimeException("Parameter 'input' not found"))
     val outputDir = params.getOrElse("output", throw new RuntimeException("Parameter 'output' not found"))
     val startTime = System.nanoTime()
-    implicit val spark: SparkSession = SparkSessionProvider.initSparkSession("local[*]")
+    implicit val spark: SparkSession = SparkSessionHandler.initSparkSession("local[*]")
 
     val movieData: DataFrame = BusinessAgg
       .loadMovieData[Movie](inputDir + "movies.dat")(Encoders.product[Movie],spark)
@@ -41,7 +41,7 @@ object Main {
 //    Records are too less to be saved in daily partition hence saved them to year partition so that look for
     //    record can be shortened
     BusinessAgg.writeRatingData(ratingData,outputDir,"rating")
-
+    SparkSessionHandler.shutdownSC()
     val endTime = System.nanoTime()
     val executionTime = (endTime - startTime) / (1000 * 1e6) // Convert nanoseconds to milliseconds
     println(s"Execution time: $executionTime seconds")
